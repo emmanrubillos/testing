@@ -57,6 +57,12 @@
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                                     Changes here
                                 </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    Changes here
+                                </div>
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    Changes here
+                                </div>
                             </div>
                         </div>
 
