@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"><!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -53,10 +54,6 @@
                                 <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel.com/docs" class="underline text-gray-900 dark:text-white">Documentation</a></div>
                             </div>
 
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    Changes here
-                                </div>
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                                     Changes here
                                 </div>
@@ -77,6 +74,34 @@
                                     Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
                                 </div>
                             </div>
+                             public function generateDatatables($request)
+    {
+        return DataTables::of($request)
+                ->addIndexColumn()
+                ->addColumn('role', function($data){
+                    $role = '';
+                    if($data->role_id == 1){
+                        $role = '<span class="badge badge-primary">Administrator</span>';
+                    } else if($data->role_id == 2){
+                        $role = '<span class="badge badge-warning">Supervisor</span>';
+                    } else {
+                        $role = '<span class="badge badge-secondary">Trainee</span>';
+                    }
+                    return $role;
+                })
+                ->addColumn('action', function($data){
+                    $actionButtons = '<a href="'.route("users.edit",$data->id).'" data-id="'.$data->id.'" class="btn btn-sm btn-warning editUser">
+                                        <i class="fas fa-edit"></i>
+                                      </a>
+                                      <button data-id="'.$data->id.'" class="btn btn-sm btn-danger" onclick="confirmDelete('.$data->id.')">
+                                        <i class="fas fa-trash"></i>
+                                      </button>';
+                    return $actionButtons;
+                })
+                ->rawColumns(['action','role'])
+                ->make(true);
+    }
+}
                         </div>
 
                         <div class="p-6 border-t border-gray-200 dark:border-gray-700">
